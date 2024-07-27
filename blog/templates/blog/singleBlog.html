@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}
+Blog Title
+{% endblock %}
+
+{% block content %}
+<div class="single_blog_container">
+    <h2 class="single_blog_container_heading">{{ blogContent.title }}</h2>
+    <div class="author_info_single_blog">
+        <img src="{% static 'images/logo.png' %}" alt="user" height="60" width="60">
+
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div class="up_section">
+                <h3>{{ blogContent.author }}</h3>
+            </div>
+
+            <div class="down_section">
+                <p>{{ blogContent.createdAt }}</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="actual_blog">
+        <textarea class="blog_content" readonly>{{ blogContent.content }}</textarea>
+    </div>
+
+    <div class="footer">
+        <div class="author_info_single_blog">
+            <img src="{% static 'images/logo.png' %}" alt="User" width="50" height="50">
+            <span class="author_info">
+                <h3>Written by {{ blogContent.author }}</h3>
+            </span>
+        </div>
+    </div>
+
+    <div class="more_posts">
+        <a href="{% url 'yourBlogs' blogContent.author.id %}">More Posts from {{ blogContent.author }}</a>
+    </div>
+</div>
+
+
+{% endblock %}

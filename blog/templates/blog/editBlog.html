@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Edit Blog
+{% endblock %}
+
+{% block content %}
+<form method="post" class="create_form">
+    {% csrf_token %}
+    <h2 class="create_form_heading">Edit Your Blog</h2>
+    {{form.as_p}}
+    <button class="button submit">Save Blog</button>
+</form>
+{% endblock %}

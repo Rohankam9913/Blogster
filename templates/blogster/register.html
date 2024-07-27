@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+       Register
+    </title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+</head>
+<body>
+    <form class="auth_form" method="post">
+        {% csrf_token %}
+
+        <h2 class="auth_heading">Join Blogster</h2>
+    
+        <label for="username" class="label">Username</label>
+        <input type="text" id="username" class="input" name="username" required>
+
+        <label for="password" class="label">Password</label>
+        <input type="password" id="password" class="input" name="password" required>
+
+        <div class="auth_bottom_section">
+            <button type="submit" class="button submit">Register</button>
+            <span class="auth_info">Already have an account ? <a href="{% url 'login' %}" class="link">Login</a></span>
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+                <h2 class="error">{{ message }}</h2>
+            {% endfor %}
+        {% endif %}
+    </form>
+</body>
+</html>

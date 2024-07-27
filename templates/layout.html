@@ -1,0 +1,78 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/create.css' %}">
+    <link rel="stylesheet" href="{% static 'css/read.css' %}">
+    <link rel="stylesheet" href="{% static 'css/single.css' %}">
+    <link rel="stylesheet" href="{% static 'css/topics.css' %}">
+</head>
+
+<body>
+    <main class="container">
+        <nav class="nav">
+            <div class="logo">
+                <a href="/" class="logo link">BlogSter</a>
+            </div>
+
+            <div class="right">
+                {% with request.resolver_match.url_name as url_name %}
+                <a href="{% url 'read' %}" class="{% if url_name == 'read' %} active {% endif %} link hide_link">Read</a>
+                <a href="{% url 'write' %}" class="{% if url_name == 'write' %} active {% endif %} link hide_link">Write</a>
+                <a href="{% url 'about' %}" class="{% if url_name == 'about' %} active {% endif %} link hide_link">About</a>
+                <a href="{% url 'topics' %}" class="{% if url_name == 'topics' %} active {% endif %} link topic_link hide_link">Topics</a>
+
+                <div class="lines" id="lineContainer">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+
+                {% if user.is_authenticated %}
+                <a href="{% url 'yourBlogs' request.user.id %}" class="{% if url_name == 'yourBlogs' %} active {% endif %} link hide_link">Blogs</a>
+                <a href="{% url 'logout' %}" class="link button_layer">Logout</a>
+                {% else %}
+                <a href="{% url 'login' %}" class="link ">Login</a>
+                <a href="{% url 'register' %}" class="link button_layer">Get Started</a>
+                {% endif %}
+                {% endwith %}
+            </div>
+        </nav>
+
+        <div id="menu" class="menus">
+            <a href="{% url 'read' %}" class="link ">Read</a>
+            <a href="{% url 'write' %}" class="link ">Write</a>
+            <a href="{% url 'about' %}" class="link ">About</a>
+            <a href="{% url 'topics' %}" class="link ">Topics</a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'yourBlogs' request.user.id %}" class="link hide_link">Blogs</a>
+            {% endif %}
+        </div>
+
+        {% block content %} {% endblock %}
+    </main>
+
+    <script>
+        const lineContainer = document.getElementById("lineContainer");
+
+        lineContainer.addEventListener("click", (e) => {
+            const menu = document.getElementById("menu");
+            if (menu.classList.contains("menus")){
+                menu.classList.add("menu");
+                menu.classList.remove("menus");
+            }  
+            else{
+                menu.classList.add("menus");
+                menu.classList.remove("menu");
+            }
+        })
+    </script>
+</body>
+
+</html>

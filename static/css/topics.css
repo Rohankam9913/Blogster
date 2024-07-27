@@ -1,0 +1,74 @@
+.topic_container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+}
+
+.topic_card_container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+}
+
+.topic_card{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid gainsboro;
+    padding: 15px;
+    border-radius: 5px;
+    gap: 20px;
+}
+
+.topic_card_heading{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #242424;
+}
+
+.topic_card_description{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #444;
+}
+
+.topic_card_button{
+    font-size: 14px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 400;
+    color: #fff;
+    text-decoration: none;
+    padding: 8px;
+    background-color: black;
+    border-radius: 50px;
+    width: fit-content;
+    letter-spacing: 1.5px;
+}
+
+.topic_card_header{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.topic_card_footer{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/*  Media queries */
+@media screen and (max-width: 800px) {
+    .topic_card_container{
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 580px){
+    .topic_card_container{
+        grid-template-columns: 1fr;
+    }
+}

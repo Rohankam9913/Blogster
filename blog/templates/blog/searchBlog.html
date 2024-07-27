@@ -1,0 +1,66 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+
+{% block title %}
+    Read Blogs
+{% endblock %}
+
+{% block content %}
+<div class="read_container">
+    <div class="read_side_bar">
+        <h2 class="read_heading">Topics</h2>
+        <a href="/blog/tag/AT" class="link">Arts</a>
+        <a href="/blog/tag/DO" class="link">DevOps</a>
+        <a href="/blog/tag/LT" class="link">Literature</a>
+        <a href="/blog/tag/PR" class="link">Programming</a>
+        <a href="/blog/tag/TC" class="link">Technology</a>
+        <a href="/blog/tag/SC" class="link">Science</a>
+        <hr>
+        <a href="/blog/topics" class="link">All Topics</a>
+    </div>
+
+    <div class="read_main_container">
+        {% if request.resolver_match.url_name == 'yourBlogs' %}
+            <h2 class="read_main_container_heading"> {{ author }}'s Blogs </h2>
+        {% else %}
+            <h2 class="read_main_container_heading"> All Blogs </h2>
+        {% endif %}
+
+        <form method="post" target="_self" class="searchForm" action="{% url 'search' %}">
+            {% csrf_token %}
+            <input type="search" class="read_search_bar" placeholder="Search..." name="search_query">
+            <button type="submit" class="button">Search</button>
+        </form>
+
+        <div class="read_main_cards_container">
+
+            {% for blog in blogs %}
+            <div class="read_main_card">
+                <h3 class="post_title">{{ blog.title }}</h3>
+
+                <span class="post_profile">
+                    <img src="{% static 'images/logo.png' %}" alt="User" width="50" height="50">
+                    <div style="display: flex; flex-direction:column; gap: 10px;">
+                        <h4 class="post_author">Posted by {{ blog.author }}</h4>
+                        <p class="post_date">Posted on {{ blog.createdAt }}</p>
+                    </div>
+                </span>
+                    
+                <span class="post_info">
+                    <a href="{% url 'singleBlog' blog.title blog.id %}" class="btn read_btn">Read</a>
+
+                    {% if blog.author == request.user %}
+                    <a href="{% url 'edit' blog.id %}" class="btn edit_btn">Edit</a>
+                    <a href="{% url 'delete' blog.id blog.topics %}" class="btn del_btn">Delete</a>
+                    {% endif %}
+                </span>
+
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
